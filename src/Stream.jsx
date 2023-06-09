@@ -2,22 +2,19 @@ import { useEffect, useRef } from 'react'
 
 export const AppStreamCam = () => {
 
-  const audioRef = useRef(null);
+  const videoRef = useRef(null);
 
-  const streamCamAudio = () => {
-    var constraints = { audio: true };
+  const streamCamVideo = () => {
+    var constraints = { video: true };
     navigator.mediaDevices
       .getUserMedia(constraints)
       .then((mediaStream) => {
-        const audio = audioRef.current;
+        const video = videoRef.current;
 
-        console.log(mediaStream)
-        audio.srcObject = mediaStream;
-        audio.play();
-        console.log("hey")
+        video.srcObject = mediaStream;
+        video.onloadedmetadata = () => video.play();
       })
       .catch(function (err) {
-        console.log("what");
         console.log(err.name + ": " + err.message);
       }); // always check for errors at the end.
   }
@@ -27,13 +24,13 @@ export const AppStreamCam = () => {
     console.log(devices)
   }
   useEffect(() => {
-    streamCamAudio();
+    streamCamVideo();
     getDevices();
   }, [])
 
   return (
     <div style={{ "width": "1280px", "height": "720px" }}>
-      <audio autoPlay={true} id="audioElement" style={{ "width": "1280px", "height": "720px" }} ref={audioRef} ></audio>
+      <video autoPlay={true} id="audioElement" style={{ "width": "1280px", "height": "720px" }} ref={videoRef} ></video>
     </div>
   );
 }
