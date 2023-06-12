@@ -38,9 +38,9 @@ export const AppStreamCam = () => {
       <div style={{ "width": "1280px", "height": "720px" }}>
         <video autoPlay={true} id="audioElement" style={{ "width": "1280px", "height": "720px" }} ref={videoRef} src="/video.mp4" loop></video>
       </div>
-      {/* <button onClick={streamCamVideo}> */}
-      {/*   Play */}
-      {/* </button> */}
+      <button onClick={() => videoRef.current.play()}>
+        Play
+      </button>
     </div>
   );
 }
